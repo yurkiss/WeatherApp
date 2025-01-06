@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/FavoriteCitiesFragment">
+
+    <fragment
+        android:id="@+id/FavoriteCitiesFragment"
+        android:name="com.yurkiss.planradar.weatherapp.cities.presentation.FavoriteCitiesFragment"
+        android:label="@string/favorite_cities_fragment_label"
+        tools:layout="@layout/favorite_cities_fragment">
+        <action
+            android:id="@+id/action_FavoriteCitiesFragment_to_CityWeatherFragment"
+            app:destination="@id/CityWeatherFragment" />
+        <action
+            android:id="@+id/action_FavoriteCitiesFragment_to_HistoricalDataFragment"
+            app:destination="@id/HistoricalDataFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CityWeatherFragment"
+        android:name="com.yurkiss.planradar.weatherapp.details.presentation.CityWeatherFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+        <action
+            android:id="@+id/action_SecondFragment_to_FavoriteCitiesFragment"
+            app:destination="@id/FavoriteCitiesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/HistoricalDataFragment"
+        android:name="com.yurkiss.planradar.weatherapp.historical.presentation.HistoricalDataFragment"
+        android:label="@string/historical_data_label"
+        tools:layout="@layout/historical_data_fragment" />
+</navigation>

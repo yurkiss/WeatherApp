@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context=".historical.presentation.HistoricalDataFragment">
+
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/recycler_view_historical_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/holder_historycal_data_item" />
+
+</FrameLayout>
