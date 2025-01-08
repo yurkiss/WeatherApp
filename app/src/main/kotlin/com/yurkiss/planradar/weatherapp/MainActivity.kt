@@ -1,7 +1,10 @@
 package com.yurkiss.planradar.weatherapp
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -39,6 +42,9 @@ class MainActivity : AppCompatActivity(), FragmentCallbacks {
             modalBottomSheet.show(supportFragmentManager, SearchCitiesBottomSheet.TAG)
 
         }
+
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(getColor(R.color.black_10)))
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

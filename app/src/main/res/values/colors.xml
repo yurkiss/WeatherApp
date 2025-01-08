@@ -6,4 +6,5 @@
     <color name="light_grey">#FFE9E9E9</color>
     <color name="group_image_tint">#1A000000</color>
     <color name="weather_blue">#FF2388C7</color>
+    <color name="black_10">#33000000</color>
 </resources>

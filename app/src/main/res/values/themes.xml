@@ -1,21 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.PlanRadarWeatherApp" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.PlanRadarWeatherApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/main</item>
-        <item name="colorSurface">@color/main</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorOnSurface">@color/main</item>
+<!--        <item name="colorSurface">@color/main</item>-->
 
         <item name="fontFamily">@font/lato</item>
         <item name="android:fontFamily">@font/lato</item>
 
-        <item name="textAppearanceTitleLarge">@style/TextAppearance.App.TitleLarge</item>
-        <item name="extendedFloatingActionButtonStyle">@style/Widget.App.ExtendedFloatingActionButton</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
+        <item name="android:statusBarColor">@color/black</item>
 
+        <item name="extendedFloatingActionButtonStyle">@style/Widget.App.ExtendedFloatingActionButton</item>
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
     </style>
 
-    <style name="Widget.App.Toolbar" parent="Widget.Material3.Toolbar">
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
         <item name="titleTextAppearance">@style/TextAppearance.App.TitleLarge</item>
     </style>
@@ -27,8 +31,9 @@
 
     <style name="Theme.PlanRadarWeatherApp" parent="Base.Theme.PlanRadarWeatherApp" />
 
-    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/ModalBottomSheetDialog</item>
     </style>
 
 </resources>
+

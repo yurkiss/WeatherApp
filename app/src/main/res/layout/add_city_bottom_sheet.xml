@@ -13,6 +13,7 @@
         android:hint="@string/search_for_cities"
         app:startIconContentDescription="@string/content_description_search_24px"
         app:startIconDrawable="@drawable/search_24px"
+        app:startIconTint="@color/main"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
         >
@@ -20,7 +21,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_search_for_city"
             android:layout_width="match_parent"
-            android:layout_height="56dp" />
+            android:layout_height="56dp"
+
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
