@@ -17,6 +17,7 @@
         />
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -45,6 +46,16 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginLeft="32dp"
+        app:layout_anchor="@id/appBar"
+        app:layout_anchorGravity="bottom|center"
+        app:cardElevation="16dp"
         />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

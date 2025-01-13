@@ -1,23 +1,28 @@
 package com.yurkiss.planradar.weatherapp.cities.data
 
-import com.yurkiss.planradar.weatherapp.cities.domain.repository.FavoriteCitiesRepository
 import com.yurkiss.planradar.weatherapp.cities.domain.model.City
+import com.yurkiss.planradar.weatherapp.cities.domain.repository.FavoriteCitiesRepository
 import com.yurkiss.planradar.weatherapp.common.util.DatabaseException
-import com.yurkiss.planradar.weatherapp.data.database.dao.FavoriteCitiesDao
 import com.yurkiss.planradar.weatherapp.common.util.Outcome
 import com.yurkiss.planradar.weatherapp.common.util.map
 import com.yurkiss.planradar.weatherapp.common.util.runCatching
 import com.yurkiss.planradar.weatherapp.common.util.toLeft
 import com.yurkiss.planradar.weatherapp.common.util.toRight
+import com.yurkiss.planradar.weatherapp.data.database.dao.FavoriteCitiesDao
 import com.yurkiss.planradar.weatherapp.data.database.entity.FavoriteCityEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 import javax.inject.Inject
 
 class LocalFavoriteCitiesRepository @Inject constructor(
     private val favoriteCitiesDao: FavoriteCitiesDao
 ) : FavoriteCitiesRepository {
+
+    init {
+        Timber.d("LocalFavoriteCitiesRepository init")
+    }
 
     override fun getAll(): List<City> = listOf()
 

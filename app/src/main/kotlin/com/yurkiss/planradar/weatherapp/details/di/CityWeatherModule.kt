@@ -1,7 +1,7 @@
 package com.yurkiss.planradar.weatherapp.details.di
 
-import com.yurkiss.planradar.weatherapp.cities.data.LocalFavoriteCitiesRepository
-import com.yurkiss.planradar.weatherapp.cities.domain.repository.FavoriteCitiesRepository
+import com.yurkiss.planradar.weatherapp.common.domain.CityWeatherRepository
+import com.yurkiss.planradar.weatherapp.data.repository.LocalCityWeatherRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,6 +14,6 @@ abstract class CityWeatherModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindsFavoriteCitiesRepository(repo: LocalFavoriteCitiesRepository): FavoriteCitiesRepository
+    abstract fun bindsCityWeatherRepository(repo: LocalCityWeatherRepository): CityWeatherRepository
 
 }

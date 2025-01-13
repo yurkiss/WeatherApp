@@ -13,6 +13,7 @@ import com.yurkiss.planradar.weatherapp.historical.domain.model.HistoricalItem
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import timber.log.Timber
 import javax.inject.Inject
 
 class OpenWeatherRepositoryImpl @Inject constructor(
@@ -20,6 +21,10 @@ class OpenWeatherRepositoryImpl @Inject constructor(
     private val historicalApi: OpenWeatherHistoricalApi,
     @OpenWeatherApiKey private val apiKey: String
 ) : OpenWeatherRepository {
+
+    init {
+        Timber.d("OpenWeatherRepositoryImpl init")
+    }
 
     override suspend fun getCities(query: String): Outcome<List<City>> {
         return runCatching(handler = {

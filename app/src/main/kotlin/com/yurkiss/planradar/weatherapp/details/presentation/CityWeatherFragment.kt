@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.withResumed
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import coil3.load
 import com.yurkiss.planradar.weatherapp.R
 import com.yurkiss.planradar.weatherapp.cities.domain.model.City
@@ -17,7 +19,6 @@ import com.yurkiss.planradar.weatherapp.common.BindingFragment
 import com.yurkiss.planradar.weatherapp.common.FavoriteCitiesToCityWeatherArgs
 import com.yurkiss.planradar.weatherapp.common.domain.Labels
 import com.yurkiss.planradar.weatherapp.common.domain.LabelsRepository
-import com.yurkiss.planradar.weatherapp.common.fragmentCallbacks
 import com.yurkiss.planradar.weatherapp.databinding.WeatherDetailsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -36,6 +37,17 @@ class CityWeatherFragment : BindingFragment<WeatherDetailsFragmentBinding>(::inf
     private val viewModel: CityWeatherViewModel by hiltNavGraphViewModels(R.id.nav_graph)
 
     override fun setupGUI(binding: WeatherDetailsFragmentBinding, savedInstanceState: Bundle?) {
+
+        val navController = findNavController()
+        val toolbar = binding.toolbar
+        val activity = requireActivity() as AppCompatActivity
+        activity.setSupportActionBar(toolbar)
+        NavigationUI.setupActionBarWithNavController(activity, navController)
+        arguments?.let {
+            val name = it.getString(FavoriteCitiesToCityWeatherArgs.CITY, "")
+            activity.supportActionBar?.title = null
+        }
+
         arguments?.let {
             val name = it.getString(FavoriteCitiesToCityWeatherArgs.CITY, "")
             val country = it.getString(FavoriteCitiesToCityWeatherArgs.COUNTRY, "")
@@ -64,12 +76,15 @@ class CityWeatherFragment : BindingFragment<WeatherDetailsFragmentBinding>(::inf
 
                                 loadingLayout.visibility = View.GONE
                                 weatherCard.visibility = View.VISIBLE
+                                weatherCardContent.visibility = View.VISIBLE
+
                             }
                         }
 
                         CityWeatherScreenState.Loading -> binding {
                             loadingLayout.visibility = View.VISIBLE
-                            weatherCard.visibility = View.GONE
+                            weatherCard.visibility = View.VISIBLE
+                            weatherCardContent.visibility = View.GONE
                         }
 
                         is CityWeatherScreenState.Error -> binding {
@@ -84,25 +99,14 @@ class CityWeatherFragment : BindingFragment<WeatherDetailsFragmentBinding>(::inf
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.withResumed {
-                arguments?.let {
-                    val name = it.getString(FavoriteCitiesToCityWeatherArgs.CITY, "")
-                    activity?.fragmentCallbacks?.run {
-                        setTitle(name)
-                        hideFab()
-                    }
-                }
-            }
-        }
-
     }
 
     private fun displayMessage(message: String) = binding {
         loadingText.text = message
         loadingLayout.visibility = View.VISIBLE
         loadingProgress.visibility = View.GONE
-        weatherCard.visibility = View.GONE
+        weatherCardContent.visibility = View.GONE
+        weatherCard.visibility = View.VISIBLE
     }
 
     companion object {

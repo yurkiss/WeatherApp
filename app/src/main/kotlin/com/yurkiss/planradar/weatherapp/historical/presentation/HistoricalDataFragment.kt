@@ -3,19 +3,20 @@ package com.yurkiss.planradar.weatherapp.historical.presentation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.withResumed
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yurkiss.planradar.weatherapp.R
 import com.yurkiss.planradar.weatherapp.cities.domain.model.City
 import com.yurkiss.planradar.weatherapp.common.BindingFragment
 import com.yurkiss.planradar.weatherapp.common.FavoriteCitiesToHistoricalDataArgs
-import com.yurkiss.planradar.weatherapp.common.fragmentCallbacks
 import com.yurkiss.planradar.weatherapp.databinding.HistoricalDataFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -34,6 +35,17 @@ class HistoricalDataFragment : BindingFragment<HistoricalDataFragmentBinding>(::
     private val viewModel: HistoricalDataViewModel by hiltNavGraphViewModels(R.id.nav_graph)
 
     override fun setupGUI(binding: HistoricalDataFragmentBinding, savedInstanceState: Bundle?) {
+
+        val navController = findNavController()
+        val toolbar = binding.toolbar
+        val activity = requireActivity() as AppCompatActivity
+        activity.setSupportActionBar(toolbar)
+        NavigationUI.setupActionBarWithNavController(activity, navController)
+        arguments?.let {
+            val name = it.getString(FavoriteCitiesToHistoricalDataArgs.CITY, "")
+            activity.supportActionBar?.title = getString(R.string.historical_data_label, name)
+        }
+
         binding.recyclerViewHistoricalData.apply {
             setController(historicalDataController)
             itemAnimator = DefaultItemAnimator().apply { supportsChangeAnimations = true }
@@ -55,17 +67,17 @@ class HistoricalDataFragment : BindingFragment<HistoricalDataFragmentBinding>(::
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.withResumed {
-                arguments?.let {
-                    val name = it.getString(FavoriteCitiesToHistoricalDataArgs.CITY, "")
-                    activity?.fragmentCallbacks?.run {
-                        setTitle(getString(R.string.historical_data_label, name))
-                        hideFab()
-                    }
-                }
-            }
-        }
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.lifecycle.withResumed {
+//                arguments?.let {
+//                    val name = it.getString(FavoriteCitiesToHistoricalDataArgs.CITY, "")
+//                    activity?.fragmentCallbacks?.run {
+//                        setTitle(getString(R.string.historical_data_label, name))
+//                        hideFab()
+//                    }
+//                }
+//            }
+//        }
 
         arguments?.let {
             val name = it.getString(FavoriteCitiesToHistoricalDataArgs.CITY, "")

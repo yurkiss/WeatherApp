@@ -3,6 +3,7 @@ package com.yurkiss.planradar.weatherapp.cities.presentation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
@@ -10,9 +11,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yurkiss.planradar.weatherapp.R
+import com.yurkiss.planradar.weatherapp.cities.presentation.search.SearchCitiesBottomSheet
 import com.yurkiss.planradar.weatherapp.common.BindingFragment
 import com.yurkiss.planradar.weatherapp.common.FavoriteCitiesToCityWeatherArgs
 import com.yurkiss.planradar.weatherapp.common.FavoriteCitiesToHistoricalDataArgs
@@ -40,6 +43,14 @@ class FavoriteCitiesFragment : BindingFragment<FavoriteCitiesFragmentBinding>(::
 
     override fun setupGUI(binding: FavoriteCitiesFragmentBinding, savedInstanceState: Bundle?) {
 
+        val navController = findNavController()
+        val toolbar = binding.toolbar
+        (requireActivity() as? AppCompatActivity)?.let {
+            it.setSupportActionBar(toolbar)
+            NavigationUI.setupActionBarWithNavController(it, navController)
+            it.supportActionBar?.title = getString(R.string.favorite_cities_fragment_label)
+        }
+
         binding.recyclerViewFavoriteCities.apply {
             setController(favoriteCitiesController)
             itemAnimator = DefaultItemAnimator().apply { supportsChangeAnimations = true }
@@ -51,6 +62,11 @@ class FavoriteCitiesFragment : BindingFragment<FavoriteCitiesFragmentBinding>(::
         }
         favoriteCitiesController.callback = callback
 
+        binding.fab.setOnClickListener {
+            val modalBottomSheet = SearchCitiesBottomSheet()
+            modalBottomSheet.show(parentFragmentManager, SearchCitiesBottomSheet.TAG)
+
+        }
     }
 
     override fun setupObserve() {
@@ -78,7 +94,10 @@ class FavoriteCitiesFragment : BindingFragment<FavoriteCitiesFragmentBinding>(::
                 FavoriteCitiesToCityWeatherArgs.CITY to record.title,
                 FavoriteCitiesToCityWeatherArgs.COUNTRY to record.country
             )
-            findNavController().navigate(R.id.action_FavoriteCitiesFragment_to_CityWeatherFragment, bundle)
+            findNavController().navigate(
+                R.id.action_FavoriteCitiesFragment_to_CityWeatherFragment,
+                bundle
+            )
         }
 
         override fun onInfoClicked(record: UiCity) {

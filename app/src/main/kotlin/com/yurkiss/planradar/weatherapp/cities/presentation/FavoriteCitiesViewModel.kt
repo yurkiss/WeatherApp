@@ -2,8 +2,8 @@ package com.yurkiss.planradar.weatherapp.cities.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yurkiss.planradar.weatherapp.cities.domain.usecase.ObserverFavoriteCitiesUseCase
 import com.yurkiss.planradar.weatherapp.cities.domain.model.City
+import com.yurkiss.planradar.weatherapp.cities.domain.usecase.ObserverFavoriteCitiesUseCase
 import com.yurkiss.planradar.weatherapp.common.util.BiDiMapping
 import com.yurkiss.planradar.weatherapp.common.util.Failure
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,10 +26,7 @@ sealed interface FavoriteCitiesScreenState {
     data class Error(val failure: Failure) : FavoriteCitiesScreenState
 }
 
-sealed interface FavoriteCitiesActions {
-    data class OpenWeatherDetails(val city: UiCity) : FavoriteCitiesActions
-    data class OpenHistoricalData(val city: UiCity) : FavoriteCitiesActions
-}
+sealed interface FavoriteCitiesActions
 
 @HiltViewModel
 class FavoriteCitiesViewModel @Inject constructor(

@@ -15,11 +15,16 @@ import com.yurkiss.planradar.weatherapp.historical.domain.model.HistoricalItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 import javax.inject.Inject
 
 class LocalCityWeatherRepository @Inject constructor(
     private val cityWeatherDao: CityWeatherDao,
 ) : CityWeatherRepository {
+
+    init {
+        Timber.d("LocalCityWeatherRepository initialized")
+    }
 
     override fun observeAll(city: City): Flow<Outcome<List<HistoricalItem>>> {
         return cityWeatherDao.observe(city.name, city.country)
