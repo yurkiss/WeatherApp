@@ -49,7 +49,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
     buildFeatures {
         viewBinding = true
@@ -58,6 +58,14 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":common:domain"))
+    implementation(project(":common:data"))
+    implementation(project(":common:presentation"))
+
+    implementation(project(":features:favorite-cities:presentation"))
+    implementation(project(":features:favorite-cities:domain"))
+    implementation(project(":features:favorite-cities:data"))
 
     // Kotlin
     implementation(libs.kotlinx.coroutines.android)

@@ -2,7 +2,7 @@ package com.yurkiss.planradar.weatherapp.historical.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yurkiss.planradar.weatherapp.cities.domain.model.City
+import com.yurkiss.planradar.weatherapp.common.domain.model.City
 import com.yurkiss.planradar.weatherapp.common.util.Failure
 import com.yurkiss.planradar.weatherapp.historical.domain.GetHistoricalDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

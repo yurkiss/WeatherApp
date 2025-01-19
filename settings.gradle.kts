@@ -21,4 +21,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "PlanRadarWeatherApp"
 include(":app")
- 
+include(":common:domain")
+include(":common:data")
+include(":common:presentation")
+
+include(":features:favorite-cities:presentation")
+include(":features:favorite-cities:domain")
+include(":features:favorite-cities:data")

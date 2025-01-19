@@ -2,11 +2,10 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/FavoriteCitiesFragment">
-
+    android:id="@id/nav_graph"
+    app:startDestination="@id/FavoriteCitiesScreen">
     <fragment
-        android:id="@+id/FavoriteCitiesFragment"
+        android:id="@+id/FavoriteCitiesScreen"
         android:name="com.yurkiss.planradar.weatherapp.cities.presentation.FavoriteCitiesFragment"
         android:label="@string/favorite_cities_fragment_label"
         tools:layout="@layout/favorite_cities_fragment">
@@ -24,7 +23,7 @@
         tools:layout="@layout/fragment_second">
         <action
             android:id="@+id/action_SecondFragment_to_FavoriteCitiesFragment"
-            app:destination="@id/FavoriteCitiesFragment" />
+            app:destination="@id/FavoriteCitiesScreen" />
     </fragment>
     <fragment
         android:id="@+id/HistoricalDataFragment"

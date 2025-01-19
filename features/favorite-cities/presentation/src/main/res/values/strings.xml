@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lbl_add_city">Add city</string>
+    <string name="lbl_search_for_cities">Search for cities</string>
+
+    <string name="content_description_search_24px">Search icon</string>
+
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="favorite_cities_fragment_label">Cities</string>
+</resources>

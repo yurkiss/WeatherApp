@@ -14,14 +14,15 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yurkiss.planradar.weatherapp.R
-import com.yurkiss.planradar.weatherapp.cities.domain.model.City
-import com.yurkiss.planradar.weatherapp.common.BindingFragment
-import com.yurkiss.planradar.weatherapp.common.FavoriteCitiesToHistoricalDataArgs
+import com.yurkiss.planradar.weatherapp.common.domain.model.City
+import com.yurkiss.planradar.weatherapp.common.presentation.BindingFragment
+import com.yurkiss.planradar.weatherapp.common.presentation.FavoriteCitiesToHistoricalDataArgs
 import com.yurkiss.planradar.weatherapp.databinding.HistoricalDataFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.yurkiss.planradar.weatherapp.common.presentation.R as comR
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -32,7 +33,7 @@ class HistoricalDataFragment : BindingFragment<HistoricalDataFragmentBinding>(::
     @Inject
     lateinit var historicalDataController: HistoricalDataController
 
-    private val viewModel: HistoricalDataViewModel by hiltNavGraphViewModels(R.id.nav_graph)
+    private val viewModel: HistoricalDataViewModel by hiltNavGraphViewModels(comR.id.nav_graph)
 
     override fun setupGUI(binding: HistoricalDataFragmentBinding, savedInstanceState: Bundle?) {
 
@@ -81,7 +82,7 @@ class HistoricalDataFragment : BindingFragment<HistoricalDataFragmentBinding>(::
 
         arguments?.let {
             val name = it.getString(FavoriteCitiesToHistoricalDataArgs.CITY, "")
-            val country = it.getString(FavoriteCitiesToHistoricalDataArgs.COUNTRY, "")
+            val country = it.getString(com.yurkiss.planradar.weatherapp.common.presentation.FavoriteCitiesToHistoricalDataArgs.COUNTRY, "")
             viewModel.submit(HistoricalDataActions.RequestData(City(name, country)))
         }
     }

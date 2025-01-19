@@ -9,7 +9,6 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.google.android.material.textview.MaterialTextView
 import com.yurkiss.planradar.weatherapp.R
-import com.yurkiss.planradar.weatherapp.common.BaseEpoxyHolder
 
 @EpoxyModelClass(layout = R.layout.holder_historycal_data_item)
 abstract class HistoricalDataItemHolder : EpoxyModelWithHolder<HistoricalDataItemHolder.Holder>() {
@@ -39,7 +38,7 @@ abstract class HistoricalDataItemHolder : EpoxyModelWithHolder<HistoricalDataIte
         holder.weatherIconView.setImageDrawable(null)
     }
 
-    class Holder : BaseEpoxyHolder() {
+    class Holder : com.yurkiss.planradar.weatherapp.common.presentation.BaseEpoxyHolder() {
         val itemContainer by bind<LinearLayout>(R.id.historical_data_item_container)
         val dateTimeView by bind<MaterialTextView>(R.id.dateTime)
         val weatherDescriptionView by bind<MaterialTextView>(R.id.weatherDescription)

@@ -2,13 +2,10 @@ package com.yurkiss.planradar.weatherapp.details.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yurkiss.planradar.weatherapp.cities.domain.model.City
-import com.yurkiss.planradar.weatherapp.cities.domain.usecase.ObserverFavoriteCitiesUseCase
-import com.yurkiss.planradar.weatherapp.cities.presentation.UiCity
+import com.yurkiss.planradar.weatherapp.common.domain.model.City
 import com.yurkiss.planradar.weatherapp.common.util.Failure
 import com.yurkiss.planradar.weatherapp.common.util.formatToLocalDateTime
 import com.yurkiss.planradar.weatherapp.details.domain.GetCityWeatherUseCase
-import com.yurkiss.planradar.weatherapp.historical.domain.GetHistoricalDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

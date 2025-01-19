@@ -2,20 +2,16 @@
     <string name="app_name">PlanRadarWeatherApp</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="favorite_cities_fragment_label">Cities</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="historical_data_label">%1$s historical data</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="lbl_add_city">Add city</string>
     <string name="lbl_no_data">No data</string>
     <string name="lbl_loading">Loading</string>
     <string name="lbl_general_error">Error loading data</string>
     <string name="lbl_error_adding_favorite_city">Error adding favorite city</string>
 
-    <string name="search_for_cities">Search for cities</string>
-    <string name="content_description_search_24px">Search icon</string>
     <string name="lbl_description">Description</string>
     <string name="lbl_temperature">Temperature</string>
     <string name="lbl_windspeed">Windspeed</string>

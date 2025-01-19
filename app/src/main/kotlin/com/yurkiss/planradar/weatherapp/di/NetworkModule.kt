@@ -2,6 +2,7 @@ package com.yurkiss.planradar.weatherapp.di
 
 import com.squareup.moshi.Moshi
 import com.yurkiss.planradar.weatherapp.BuildConfig
+import com.yurkiss.planradar.weatherapp.common.di.OpenWeatherApiKey
 import com.yurkiss.planradar.weatherapp.data.remote.OpenWeatherApi
 import com.yurkiss.planradar.weatherapp.data.remote.OpenWeatherHistoricalApi
 import dagger.Module
@@ -13,16 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
-import javax.inject.Qualifier
 import javax.inject.Singleton
-
-/**
- * A qualifier annotation used to distinguish the API keys.
- */
-@Qualifier
-@MustBeDocumented
-@Retention(AnnotationRetention.RUNTIME)
-annotation class OpenWeatherApiKey
 
 @Module
 @InstallIn(SingletonComponent::class)

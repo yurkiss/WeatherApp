@@ -1,10 +1,10 @@
 package com.yurkiss.planradar.weatherapp.historical.domain
 
-import com.yurkiss.planradar.weatherapp.cities.domain.model.City
-import com.yurkiss.planradar.weatherapp.common.domain.CityWeatherRepository
+import com.yurkiss.planradar.weatherapp.common.domain.model.City
+import com.yurkiss.planradar.weatherapp.common.domain.model.HistoricalItem
+import com.yurkiss.planradar.weatherapp.common.domain.repository.CityWeatherRepository
 import com.yurkiss.planradar.weatherapp.common.util.Outcome
 import com.yurkiss.planradar.weatherapp.common.util.UseCase
-import com.yurkiss.planradar.weatherapp.historical.domain.model.HistoricalItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

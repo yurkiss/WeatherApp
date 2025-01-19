@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.yurkiss.planradar.weatherapp.databinding.ContentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import com.yurkiss.planradar.weatherapp.common.presentation.R as comR
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
-        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(getColor(R.color.black_10)))
+        enableEdgeToEdge(statusBarStyle = SystemBarStyle.dark(getColor(comR.color.black_10)))
 
     }
 

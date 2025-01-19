@@ -14,16 +14,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import coil3.load
 import com.yurkiss.planradar.weatherapp.R
-import com.yurkiss.planradar.weatherapp.cities.domain.model.City
-import com.yurkiss.planradar.weatherapp.common.BindingFragment
-import com.yurkiss.planradar.weatherapp.common.FavoriteCitiesToCityWeatherArgs
-import com.yurkiss.planradar.weatherapp.common.domain.Labels
-import com.yurkiss.planradar.weatherapp.common.domain.LabelsRepository
+import com.yurkiss.planradar.weatherapp.common.domain.model.City
+import com.yurkiss.planradar.weatherapp.common.domain.repository.Labels
+import com.yurkiss.planradar.weatherapp.common.domain.repository.LabelsRepository
+import com.yurkiss.planradar.weatherapp.common.presentation.BindingFragment
+import com.yurkiss.planradar.weatherapp.common.presentation.FavoriteCitiesToCityWeatherArgs
 import com.yurkiss.planradar.weatherapp.databinding.WeatherDetailsFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.yurkiss.planradar.weatherapp.common.presentation.R as comR
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -34,7 +35,7 @@ class CityWeatherFragment : BindingFragment<WeatherDetailsFragmentBinding>(::inf
     @Inject
     lateinit var labelsRepository: LabelsRepository
 
-    private val viewModel: CityWeatherViewModel by hiltNavGraphViewModels(R.id.nav_graph)
+    private val viewModel: CityWeatherViewModel by hiltNavGraphViewModels(comR.id.nav_graph)
 
     override fun setupGUI(binding: WeatherDetailsFragmentBinding, savedInstanceState: Bundle?) {
 

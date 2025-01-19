@@ -1,6 +1,6 @@
 package com.yurkiss.planradar.weatherapp.details.di
 
-import com.yurkiss.planradar.weatherapp.common.domain.CityWeatherRepository
+import com.yurkiss.planradar.weatherapp.common.domain.repository.CityWeatherRepository
 import com.yurkiss.planradar.weatherapp.data.repository.LocalCityWeatherRepository
 import dagger.Binds
 import dagger.Module
