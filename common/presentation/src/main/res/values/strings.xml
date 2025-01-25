@@ -3,4 +3,11 @@
     <string name="lbl_loading">Loading</string>
     <string name="lbl_general_error">Error loading data</string>
     <string name="lbl_error_adding_favorite_city">Error adding favorite city</string>
+    <string name="lbl_footer">Weather information for %1$s received on \n%2$s</string>
+
+    <string name="group_image_description">"Group background image "</string>
+    <string name="city_icon_description">City icon</string>
+    <string name="info_icon_description">Info icon</string>
+
+
 </resources>

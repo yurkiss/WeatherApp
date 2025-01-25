@@ -27,10 +27,6 @@ class MessageView @JvmOverloads constructor(
     @set:TextProp
     var message: CharSequence? = null
 
-//    override fun onFinishInflate() {
-//        super.onFinishInflate()
-//        messageView = findViewById(android.R.id.message)
-//    }
 
     @AfterPropsSet
     fun postBindSetup() {
@@ -42,16 +38,6 @@ class MessageView @JvmOverloads constructor(
         binding.messageView.text = null
     }
 
-//    private val titleView by lazy { findViewById<TextView>(R.id.message_view) }
-//
-//    init {
-//        inflate(context, R.layout.holder_message, this)
-//    }
-//
-//    @TextProp
-//    fun setTitle(title: CharSequence?) {
-//        titleView.text = title
-//    }
 
 }
 

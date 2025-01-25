@@ -13,6 +13,7 @@
         android:layout_gravity="bottom"
         android:scaleType="centerCrop"
         android:src="@drawable/group"
+        android:contentDescription="@string/group_image_description"
         app:tint="@color/group_image_tint" />
 
     <com.google.android.material.appbar.AppBarLayout

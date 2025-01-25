@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.yurkiss.planradar.weatherapp.cities.domain.usecase.AddCityUseCase
 import com.yurkiss.planradar.weatherapp.cities.domain.usecase.SearchCitiesUseCase
 import com.yurkiss.planradar.weatherapp.cities.presentation.UiCity
-import com.yurkiss.planradar.weatherapp.cities.presentation.UiCityMapper
+import com.yurkiss.planradar.weatherapp.cities.presentation.uiCityMapper
 import com.yurkiss.planradar.weatherapp.common.util.Failure
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -57,7 +57,7 @@ class SearchCitiesViewModel @Inject constructor(
     val events = eventChannel.receiveAsFlow()
 
     private val searchQuery = MutableStateFlow<String?>(null)
-    private val cityMapper = UiCityMapper()
+    private val cityMapper = uiCityMapper()
 
     private var searchJob: Job? = null
 

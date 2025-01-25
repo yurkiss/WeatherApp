@@ -4,8 +4,10 @@ compileSdk = "35"
 minSdk = "27"
 targetSdk = "35"
 
+kotlin = "1.9.25"
+kotlinSymbolProcessing = "1.9.25-1.0.20"
+
 agp = "8.7.3"
-kotlin = "1.9.24"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -13,11 +15,11 @@ espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 constraintlayout = "2.2.0"
-navigationFragmentKtx = "2.8.2"
-navigationUiKtx = "2.8.2"
+navigationFragmentKtx = "2.8.5"
+navigationUiKtx = "2.8.5"
 hiltNavigationFragment = "1.2.0"
 lifecycle = "2.8.7"
-coroutines = "1.8.1"
+coroutines = "1.9.0"
 hilt = "2.51.1"
 retrofit = "2.11.0"
 epoxyVersion = "5.1.4"
@@ -27,7 +29,9 @@ room_version = "2.6.1"
 timber = "5.0.1"
 kotlinxDatetime = "0.6.1"
 coil = "3.0.4"
-jetbrainsKotlinJvm = "1.9.24"
+javaxInject = "1"
+spotless = "6.25.0"
+detekt = "1.23.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,6 +44,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-hilt-navigation-fragment = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hiltNavigationFragment" }
 
 coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
@@ -49,7 +54,8 @@ epoxy-processor = { module = "com.airbnb.android:epoxy-processor", version.ref =
 
 hilt-android-deps = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-androidx-hilt-navigation-fragment = { module = "androidx.hilt:hilt-navigation-fragment", version.ref = "hiltNavigationFragment" }
+javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
+
 
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
@@ -66,12 +72,22 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "room_version" }
 
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
+[bundles]
+domain-deps = ["kotlinx-coroutines-core", "javax-inject"]
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-symbolProcessing = { id = "com.google.devtools.ksp", version.ref = "kotlinSymbolProcessing" }
+
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
-kotlin-kapt = { id = "kotlin-kapt" }
-androidx-room = { id = "androidx.room"}
-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+

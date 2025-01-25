@@ -19,8 +19,7 @@
     <fragment
         android:id="@+id/CityWeatherFragment"
         android:name="com.yurkiss.planradar.weatherapp.details.presentation.CityWeatherFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/weather_details_fragment">
         <action
             android:id="@+id/action_SecondFragment_to_FavoriteCitiesFragment"
             app:destination="@id/FavoriteCitiesScreen" />

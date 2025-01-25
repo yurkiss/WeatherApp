@@ -18,6 +18,6 @@ dependencies {
     implementation(libs.kotlinx.datetime)
 
     // DI: Hilt
-    implementation("javax.inject:javax.inject:1")
+    implementation(libs.javax.inject)
 
 }

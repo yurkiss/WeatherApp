@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/historical_data_item_container"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/weatherIcon"
+        android:layout_width="48dp"
+        android:contentDescription="@string/city_icon_description"
+        android:layout_height="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/location_city_24px"
+        tools:src="@drawable/location_city_24px" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dateTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/weatherIcon"
+        app:layout_constraintTop_toTopOf="@+id/weatherIcon"
+        tools:text="01.10.2019 - 16:58" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/weatherDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/weatherIcon"
+        app:layout_constraintTop_toBottomOf="@+id/dateTime"
+        tools:text="Cloudy, 14°C" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

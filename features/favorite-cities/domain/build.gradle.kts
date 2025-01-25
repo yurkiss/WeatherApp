@@ -1,26 +1,9 @@
 plugins {
-    id("java-library")
-    alias(libs.plugins.jetbrains.kotlin.jvm)
-}
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
-    }
+    id("local.domain.library")
 }
 
 dependencies {
-
     implementation(project(":common:domain"))
-
-    // Kotlin
-    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.bundles.domain.deps)
     implementation(libs.kotlinx.datetime)
-
-    // DI: Hilt
-    implementation("javax.inject:javax.inject:1")
-
 }

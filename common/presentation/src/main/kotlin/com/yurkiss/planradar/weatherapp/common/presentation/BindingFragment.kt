@@ -1,15 +1,3 @@
-/*
- * CT Mobile, mobile client for Salesforce.com (TM)
- *
- * Copyright (C) 2007-2019 Customertimes Corp.
- * 3 Columbus Circle, 15th Floor, #1513
- * New York, NY 10019
- * mailto:support@customertimes.com
- *
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- */
-
 package com.yurkiss.planradar.weatherapp.common.presentation
 
 import android.os.Bundle

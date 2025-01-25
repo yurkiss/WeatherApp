@@ -27,7 +27,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesMoshi() = Moshi.Builder().build()
+    fun providesMoshi(): Moshi = Moshi.Builder().build()
 
     @Provides
     @Singleton

@@ -38,11 +38,11 @@ class SearchCitiesBottomSheet : BottomSheetDialogFragment() {
     @Inject
     lateinit var labelsRepository: LabelsRepository
 
-    private var _binding: AddCityBottomSheetBinding? = null
+    private var binding: AddCityBottomSheetBinding? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.setOnShowListener { it ->
+        dialog.setOnShowListener {
             val d = it as BottomSheetDialog
             val bottomSheet =
                 d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
@@ -68,14 +68,14 @@ class SearchCitiesBottomSheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = AddCityBottomSheetBinding.inflate(inflater, container, false)
-        return _binding!!.root
+        binding = AddCityBottomSheetBinding.inflate(inflater, container, false)
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        ViewCompat.setOnApplyWindowInsetsListener(requireDialog().window!!.decorView) { view, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(requireDialog().window!!.decorView) { _, insets ->
             val imeHeight = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
 
             val bottomSheet =
@@ -91,7 +91,7 @@ class SearchCitiesBottomSheet : BottomSheetDialogFragment() {
         }
 
         // Configure EpoxyRecyclerView and EpoxyController
-        _binding?.apply {
+        binding?.apply {
             recyclerViewCities.apply {
                 setController(controller)
                 itemAnimator = DefaultItemAnimator().apply { supportsChangeAnimations = true }
@@ -141,7 +141,7 @@ class SearchCitiesBottomSheet : BottomSheetDialogFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        binding = null
         controller.clear()
     }
 

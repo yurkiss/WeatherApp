@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("convention/myplugins")
     repositories {
         google {
             content {
@@ -28,3 +29,9 @@ include(":common:presentation")
 include(":features:favorite-cities:presentation")
 include(":features:favorite-cities:domain")
 include(":features:favorite-cities:data")
+
+include(":features:details:presentation")
+include(":features:details:domain")
+
+include(":features:historical-data:presentation")
+include(":features:historical-data:domain")

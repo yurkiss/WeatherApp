@@ -1,10 +1,7 @@
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
-    alias(libs.plugins.hilt.android)
+    id("local.app")
 }
 
 android {
@@ -66,6 +63,13 @@ dependencies {
     implementation(project(":features:favorite-cities:presentation"))
     implementation(project(":features:favorite-cities:domain"))
     implementation(project(":features:favorite-cities:data"))
+
+    implementation(project(":features:details:presentation"))
+    implementation(project(":features:details:domain"))
+
+    implementation(project(":features:historical-data:presentation"))
+    implementation(project(":features:historical-data:domain"))
+
 
     // Kotlin
     implementation(libs.kotlinx.coroutines.android)

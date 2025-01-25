@@ -9,5 +9,6 @@ data class CityJson(
     @Json(name = "lat") val lat: Double,
     @Json(name = "lon") val lon: Double,
     @Json(name = "country") val country: String,
-    @Json(name = "state") val state: String? = null // State is optional
+    // State is optional
+    @Json(name = "state") val state: String? = null
 )

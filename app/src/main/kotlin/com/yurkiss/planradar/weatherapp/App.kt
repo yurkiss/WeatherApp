@@ -37,11 +37,13 @@ class App : Application(), SingletonImageLoader.Factory {
             .build()
 }
 
+private const val DISK_IMAGE_CACHE_SIZE = 512L * 1024 * 1024
+
 fun newDiskCache(context: Context): DiskCache {
     val directory = context.cacheDir.resolve("image_cache").toOkioPath()
     return DiskCache
         .Builder()
         .directory(directory)
-        .maxSizeBytes(512L * 1024 * 1024)
+        .maxSizeBytes(DISK_IMAGE_CACHE_SIZE)
         .build()
 }

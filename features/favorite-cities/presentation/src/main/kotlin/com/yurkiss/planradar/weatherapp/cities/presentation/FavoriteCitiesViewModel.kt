@@ -2,7 +2,7 @@ package com.yurkiss.planradar.weatherapp.cities.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.yurkiss.planradar.weatherapp.cities.domain.usecase.ObserverFavoriteCitiesUseCase
+import com.yurkiss.planradar.weatherapp.cities.domain.usecase.ObserveFavoriteCitiesUseCase
 import com.yurkiss.planradar.weatherapp.common.domain.model.City
 import com.yurkiss.planradar.weatherapp.common.util.BiDiMapping
 import com.yurkiss.planradar.weatherapp.common.util.Failure
@@ -30,7 +30,7 @@ sealed interface FavoriteCitiesActions
 
 @HiltViewModel
 class FavoriteCitiesViewModel @Inject constructor(
-    favoriteCitiesUseCase: ObserverFavoriteCitiesUseCase,
+    favoriteCitiesUseCase: ObserveFavoriteCitiesUseCase,
 ) : ViewModel() {
 
     private val _state =
@@ -39,7 +39,7 @@ class FavoriteCitiesViewModel @Inject constructor(
 
     init {
         Timber.d("CitySelectorViewModel created")
-        val mapper = UiCityMapper()
+        val mapper = uiCityMapper()
 
         favoriteCitiesUseCase { flow ->
             flow.onEach { outcome ->
@@ -65,7 +65,7 @@ class FavoriteCitiesViewModel @Inject constructor(
     }
 }
 
-internal fun UiCityMapper() = BiDiMapping<City, UiCity>(
+internal fun uiCityMapper() = BiDiMapping<City, UiCity>(
     asOut = { UiCity(id = it.name, title = it.name, country = it.country) },
     asIn = { City(name = it.title, country = it.country) }
 )
