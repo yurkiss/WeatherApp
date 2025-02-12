@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.update
 import timber.log.Timber
 import javax.inject.Inject
 
-data class UiCity(val id: String, val title: String, val country: String)
+data class UiCity(val city: String, val title: String, val country: String)
 
 sealed interface FavoriteCitiesScreenState {
     data object Loading : FavoriteCitiesScreenState
@@ -66,6 +66,6 @@ class FavoriteCitiesViewModel @Inject constructor(
 }
 
 internal fun uiCityMapper() = BiDiMapping<City, UiCity>(
-    asOut = { UiCity(id = it.name, title = it.name, country = it.country) },
-    asIn = { City(name = it.title, country = it.country) }
+    asOut = { UiCity(city = it.name, title = "${it.name}, ${it.country}", country = it.country) },
+    asIn = { City(name = it.title, country = it.country) },
 )

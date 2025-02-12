@@ -17,7 +17,6 @@ import com.yurkiss.planradar.weatherapp.cities.presentation.search.SearchCitiesB
 import com.yurkiss.planradar.weatherapp.common.presentation.BindingFragment
 import com.yurkiss.planradar.weatherapp.favorite_cities.presentation.R
 import com.yurkiss.planradar.weatherapp.favorite_cities.presentation.databinding.FavoriteCitiesFragmentBinding
-import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -33,8 +32,15 @@ class FavoriteCitiesFragment : BindingFragment<FavoriteCitiesFragmentBinding>(::
     @Inject
     lateinit var favoriteCitiesControllerFactory: FavoriteCitiesController.Factory
 
-    @Inject
-    lateinit var navigationCallback: Lazy<FavoriteCitiesNavigation>
+    val navigationCallback: FavoriteCitiesNavigation = object : FavoriteCitiesNavigation {
+        override fun onCityClicked(city: UiCity) {
+            TODO("Not yet implemented")
+        }
+
+        override fun onInfoClicked(city: UiCity) {
+            TODO("Not yet implemented")
+        }
+    }
 
     private val viewModel: FavoriteCitiesViewModel by hiltNavGraphViewModels(comR.id.nav_graph)
 
@@ -86,12 +92,12 @@ class FavoriteCitiesFragment : BindingFragment<FavoriteCitiesFragmentBinding>(::
 
     private val callback = object : FavoriteCitiesController.Callback {
         override fun onItemClicked(record: UiCity) {
-            navigationCallback.get().onCityClicked(record)
+            navigationCallback.onCityClicked(record)
 
         }
 
         override fun onInfoClicked(record: UiCity) {
-            navigationCallback.get().onInfoClicked(record)
+            navigationCallback.onInfoClicked(record)
         }
     }
 

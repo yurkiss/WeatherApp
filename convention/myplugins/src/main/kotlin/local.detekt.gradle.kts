@@ -14,6 +14,17 @@ val detektApply by tasks.registering(Detekt::class) {
     autoCorrect = true
 }
 
+
+detekt {
+    config.from(rootProject.files("config/detekt/detekt.yml"))
+}
+
+val detektFormatting = libs.detekt.formatting
+
+dependencies {
+    detektPlugins(detektFormatting)
+}
+
 configure(listOf(detektCheck, detektApply)) {
     configure {
         group = "verification"
@@ -22,7 +33,7 @@ configure(listOf(detektCheck, detektApply)) {
         setSource(file(rootDir))
 
         // Custom detekt config
-        config.setFrom("$rootDir/detekt.yml")
+        config.setFrom("$rootDir/config/detekt/detekt.yml")
 
         // Use default configuration on top of custom config
         // (new detect rules will work out of the box after upgrading detekt version)

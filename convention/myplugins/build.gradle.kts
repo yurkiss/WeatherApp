@@ -11,12 +11,23 @@ kotlin {
     jvmToolchain(17)
 }
 
+val projectJavaVersion: JavaVersion = JavaVersion.VERSION_17
+
+java {
+    sourceCompatibility = projectJavaVersion
+    targetCompatibility = projectJavaVersion
+}
+
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions.jvmTarget.set(JvmTarget.fromTarget(projectJavaVersion.toString()))
+}
+
 dependencies {
 
-    implementation(plugin(libs.plugins.kotlin.android))
+    implementation(plugin(libs.plugins.jetbrains.kotlin.android))
     implementation(plugin(libs.plugins.hilt.android))
     implementation(plugin(libs.plugins.jetbrains.kotlin.jvm))
-    implementation(plugin(libs.plugins.jetbrains.kotlin.kapt))
+    implementation(plugin(libs.plugins.kotlin.symbolProcessing))
     implementation(plugin(libs.plugins.android.library))
     implementation(plugin(libs.plugins.spotless))
     implementation(plugin(libs.plugins.detekt))
@@ -27,14 +38,3 @@ dependencies {
 }
 
 fun plugin(plugin: Provider<PluginDependency>) = plugin.map { "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version}" }
-
-private val projectJavaVersion: JavaVersion = JavaVersion.VERSION_11
-
-java {
-    sourceCompatibility = projectJavaVersion
-    targetCompatibility = projectJavaVersion
-}
-
-tasks.withType<KotlinCompile>().configureEach {
-    compilerOptions.jvmTarget.set(JvmTarget.fromTarget(projectJavaVersion.toString()))
-}

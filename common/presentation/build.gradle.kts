@@ -1,5 +1,6 @@
 plugins {
     id("local.android.library")
+    alias(libs.plugins.compose)
 }
 
 android {
@@ -9,10 +10,11 @@ android {
 dependencies {
 
     implementation(project(":common:domain"))
+    api(project(":common:designsystem"))
 
     // DI: Hilt
     implementation(libs.hilt.android.deps)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // AndroidX
     implementation(libs.androidx.core.ktx)
@@ -20,18 +22,18 @@ dependencies {
 
     // Recycler View
     implementation(libs.epoxy)
-    kapt(libs.epoxy.processor)
+    ksp(libs.epoxy.processor)
 
     // Logging
     implementation(libs.timber)
 
+    // Compose
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-}
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material3)
 
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    debugImplementation(libs.androidx.compose.ui.tooling)
 }

@@ -14,7 +14,7 @@ dependencies {
 
     // DI: Hilt
     implementation(libs.hilt.android.deps)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // Logging
     implementation(libs.timber)

@@ -1,10 +1,17 @@
 plugins {
     id("local.android.library")
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.serialization)
+
 }
 
 android {
     namespace = "com.yurkiss.planradar.weatherapp.historical_data.presentation"
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
@@ -17,11 +24,13 @@ dependencies {
     // Kotlin
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
 
     // DI: Hilt
     implementation(libs.hilt.android.deps)
-    kapt(libs.hilt.compiler)
-    implementation(libs.androidx.hilt.navigation.fragment)
+    ksp(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
 
     // AndroidX
     implementation(libs.androidx.core.ktx)
@@ -29,18 +38,22 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    // Recycler View
-    implementation(libs.epoxy)
-    kapt(libs.epoxy.processor)
-
     // Image loading
-    implementation(libs.coil)
-    implementation(libs.coil.network.okhttp)
+    implementation(libs.coil.compose)
 
     // Logging
     implementation(libs.timber)
 
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    // Compose
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+
 }

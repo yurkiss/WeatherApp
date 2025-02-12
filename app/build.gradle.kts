@@ -2,6 +2,9 @@ import java.util.Properties
 
 plugins {
     id("local.app")
+    alias(libs.plugins.compose)
+    alias(libs.plugins.kotlin.symbolProcessing)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -27,7 +30,7 @@ android {
         val properties = Properties()
         val localPropertiesFile = project.rootProject.file("local.properties")
         properties.load(localPropertiesFile.inputStream())
-        val apiKey = properties.getProperty("API_KEY") ?: throw IllegalStateException("API_KEY not found in local.properties")
+        val apiKey = checkNotNull(properties.getProperty("API_KEY")) { "API_KEY not found in local.properties" }
         buildConfigField("String", "API_KEY", "\"$apiKey\"")
 
     }
@@ -37,20 +40,21 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        compose = true
     }
 }
 
@@ -59,6 +63,7 @@ dependencies {
     implementation(project(":common:domain"))
     implementation(project(":common:data"))
     implementation(project(":common:presentation"))
+    implementation(project(":common:designsystem"))
 
     implementation(project(":features:favorite-cities:presentation"))
     implementation(project(":features:favorite-cities:domain"))
@@ -70,41 +75,45 @@ dependencies {
     implementation(project(":features:historical-data:presentation"))
     implementation(project(":features:historical-data:domain"))
 
+    // Compose
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.material.iconsExtended)
+    implementation(libs.androidx.compose.material3)
+//    implementation(libs.androidx.compose.material3.adaptive)
+//    implementation(libs.androidx.compose.material3.adaptive.layout)
+//    implementation(libs.androidx.compose.material3.adaptive.navigation)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.navigation.compose)
 
     // Kotlin
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
 
     // DI: Hilt
     implementation(libs.hilt.android.deps)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.fragment)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    // Recycler View
-    implementation(libs.epoxy)
-    kapt(libs.epoxy.processor)
-
-    // Network & Serialization
-    implementation(libs.retrofit2)
-    implementation(libs.retrofit2.converter.moshi)
-    implementation(libs.okhttp3.logging.interceptor)
-    kapt(libs.moshi.kotlin.codegen)
+    // Image loading
     implementation(libs.coil)
     implementation(libs.coil.network.okhttp)
-
-    // Room
-    implementation(libs.room.runtime)
-    kapt(libs.room.compiler)
-    implementation(libs.room.ktx)
 
     // Logging
     implementation(libs.timber)
@@ -114,9 +123,4 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-}
-
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
 }

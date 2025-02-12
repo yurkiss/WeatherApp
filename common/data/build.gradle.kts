@@ -1,9 +1,14 @@
 plugins {
     id("local.android.library")
+    alias(libs.plugins.room)
 }
 
 android {
     namespace = "com.yurkiss.planradar.weatherapp.common.data"
+}
+
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
@@ -16,19 +21,19 @@ dependencies {
 
     // DI: Hilt
     implementation(libs.hilt.android.deps)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // Network & Serialization
     implementation(libs.retrofit2)
     implementation(libs.retrofit2.converter.moshi)
     implementation(libs.okhttp3.logging.interceptor)
-    kapt(libs.moshi.kotlin.codegen)
+    ksp(libs.moshi.kotlin.codegen)
     implementation(libs.coil)
     implementation(libs.coil.network.okhttp)
 
     // Room
     implementation(libs.room.runtime)
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
     implementation(libs.room.ktx)
 
     // Logging

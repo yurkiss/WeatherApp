@@ -51,7 +51,7 @@ class FavoriteCitiesController @AssistedInject constructor(
 
     private fun buildLoaded(city: UiCity) {
         cityItemHolder {
-            id(city.id)
+            id("${city.title}-${city.country}")
             title("${city.title}, ${city.country}")
             withInfoIcon(true)
             itemClickListener { _ ->

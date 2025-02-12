@@ -25,6 +25,7 @@ include(":app")
 include(":common:domain")
 include(":common:data")
 include(":common:presentation")
+include(":common:designsystem")
 
 include(":features:favorite-cities:presentation")
 include(":features:favorite-cities:domain")

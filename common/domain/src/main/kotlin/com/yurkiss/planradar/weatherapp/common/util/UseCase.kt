@@ -5,6 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 
@@ -39,5 +40,16 @@ abstract class NoParamsUseCase<out Type>(
     ) {
         invoke(Unit, scope, onResult)
     }
+}
+
+abstract class FlowUseCase<out Type, in Params> {
+
+    protected abstract fun run(params: Params): Flow<Type>
+
+    operator fun invoke(params: Params): Flow<Type> {
+        return run(params)
+    }
 
 }
+
+abstract class NoParamsFlowUseCase<out Type> : FlowUseCase<Type, Nothing>()

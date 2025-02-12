@@ -7,7 +7,7 @@ import com.yurkiss.planradar.weatherapp.data.database.dao.FavoriteCitiesDao
 import com.yurkiss.planradar.weatherapp.data.database.entity.CityWeatherEntity
 import com.yurkiss.planradar.weatherapp.data.database.entity.FavoriteCityEntity
 
-@Database(entities = [FavoriteCityEntity::class, CityWeatherEntity::class], version = 1)
+@Database(entities = [FavoriteCityEntity::class, CityWeatherEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun favoriteCitiesDao(): FavoriteCitiesDao
     abstract fun cityWeatherDao(): CityWeatherDao
