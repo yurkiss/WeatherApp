@@ -15,7 +15,7 @@ espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 constraintlayout = "2.2.0"
-navigation = "2.8.6"
+navigation = "2.8.7"
 hiltNavigationFragment = "1.2.0"
 lifecycle = "2.8.7"
 coroutines = "1.9.0"
@@ -34,17 +34,20 @@ spotless = "6.25.0"
 detekt = "1.23.7"
 ktxSerialization = "1.8.0"
 
-androidx-compose-bom = "2025.01.01"
+androidx-compose-bom = "2025.02.00"
 androidx-activity-compose = "1.10.0"
 androidx-lifecycle-compose = "2.8.7"
 androidx-lifecycle-runtime-compose = "2.8.7"
 androidxHiltNavigationCompose = "1.2.0"
+androidxCoreSplashscreen = "1.0.1"
 
 [libraries]
 
 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
+
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }

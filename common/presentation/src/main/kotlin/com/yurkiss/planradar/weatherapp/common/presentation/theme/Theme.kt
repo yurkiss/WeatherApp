@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import com.yurkiss.planradar.weatherapp.designsystem.theme.WeatherAppTypography
+import com.yurkiss.planradar.weatherapp.designsystem.theme.WeatherShapes
 import com.yurkiss.planradar.weatherapp.designsystem.theme.backgroundDark
 import com.yurkiss.planradar.weatherapp.designsystem.theme.backgroundDarkHighContrast
 import com.yurkiss.planradar.weatherapp.designsystem.theme.backgroundDarkMediumContrast
@@ -219,7 +220,8 @@ import com.yurkiss.planradar.weatherapp.designsystem.theme.tertiaryLight
 import com.yurkiss.planradar.weatherapp.designsystem.theme.tertiaryLightHighContrast
 import com.yurkiss.planradar.weatherapp.designsystem.theme.tertiaryLightMediumContrast
 
-private val lightScheme = lightColorScheme(
+@Composable
+private fun lightScheme() = lightColorScheme(
     primary = primaryLight,
     onPrimary = onPrimaryLight,
     primaryContainer = primaryContainerLight,
@@ -473,12 +475,13 @@ fun WeatherAppTheme(
 //        }
 
         darkTheme -> darkScheme
-        else -> lightScheme
+        else -> lightScheme()
     }
 
     MaterialTheme(
-        colorScheme = lightScheme,
+        colorScheme = lightScheme(),
         typography = WeatherAppTypography,
+        shapes = WeatherShapes,
         content = content,
     )
 }

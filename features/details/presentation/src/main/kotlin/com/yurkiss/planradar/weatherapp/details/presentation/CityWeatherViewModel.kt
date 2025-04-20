@@ -19,7 +19,7 @@ import javax.inject.Inject
 data class UiCityWeather(
     val title: String,
     val id: Long,
-    val name: String,
+    val cityName: String,
     val temperature: String,
     val humidity: String,
     val windSpeed: String,
@@ -76,7 +76,7 @@ class CityWeatherViewModel @Inject constructor(
                             val uiCityWeather = UiCityWeather(
                                 title = action.city.name,
                                 id = data.id,
-                                name = data.name,
+                                cityName = data.name,
                                 temperature = "${data.temperature.toInt()} \u2103",
                                 humidity = "${data.humidity} %",
                                 windSpeed = "${data.windSpeed} km/h",

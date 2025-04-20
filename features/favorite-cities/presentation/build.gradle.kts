@@ -28,7 +28,6 @@ dependencies {
     // DI: Hilt
     implementation(libs.hilt.android.deps)
     ksp(libs.hilt.compiler)
-    implementation(libs.androidx.hilt.navigation.fragment)
     implementation(libs.androidx.hilt.navigation.compose)
 
     // AndroidX
@@ -36,10 +35,6 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-
-    // Recycler View
-    implementation(libs.epoxy)
-    ksp(libs.epoxy.processor)
 
     // Logging
     implementation(libs.timber)
@@ -52,6 +47,9 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.material.iconsExtended)
+
+    
     implementation(libs.androidx.compose.ui.tooling.preview)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.lifecycle.runtime.compose)

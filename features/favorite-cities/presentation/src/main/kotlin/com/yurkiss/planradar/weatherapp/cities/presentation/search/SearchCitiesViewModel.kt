@@ -1,5 +1,6 @@
 package com.yurkiss.planradar.weatherapp.cities.presentation.search
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.yurkiss.planradar.weatherapp.cities.domain.usecase.AddCityUseCase
@@ -8,20 +9,19 @@ import com.yurkiss.planradar.weatherapp.cities.presentation.UiCity
 import com.yurkiss.planradar.weatherapp.cities.presentation.uiCityMapper
 import com.yurkiss.planradar.weatherapp.common.util.Failure
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.filterNot
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -33,78 +33,96 @@ sealed interface SearchCitiesScreenState {
     data class Error(val failure: Failure) : SearchCitiesScreenState
 }
 
-sealed interface SearchCitiesScreenEvents {
-    data class ShowError(val failure: Failure) : SearchCitiesScreenEvents
-    data object CityAdded : SearchCitiesScreenEvents
+sealed interface SearchCitiesScreenEventsState {
+    data class ShowError(val failure: Failure) : SearchCitiesScreenEventsState
+    data object CityAdded : SearchCitiesScreenEventsState
+    data object Empty : SearchCitiesScreenEventsState
 }
 
 sealed interface SearchCitiesActions {
     data class SearchCity(val query: String) : SearchCitiesActions
     data class AddCity(val city: UiCity) : SearchCitiesActions
+    data object EventsSateConsumed : SearchCitiesActions
+
 }
 
 @HiltViewModel
 class SearchCitiesViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val searchCitiesUseCase: SearchCitiesUseCase,
-    private val addCityUseCase: AddCityUseCase
+    private val addCityUseCase: AddCityUseCase,
 ) : ViewModel() {
 
-    private val _state =
-        MutableStateFlow<SearchCitiesScreenState>(SearchCitiesScreenState.NoData)
-    val state: StateFlow<SearchCitiesScreenState> = _state.asStateFlow()
+    val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
 
-    private val eventChannel = Channel<SearchCitiesScreenEvents>(Channel.BUFFERED)
+    val state: StateFlow<SearchCitiesScreenState> = searchQuery.debounce(500).flatMapLatest { query ->
+        if (query.trim().length < SEARCH_QUERY_MIN_LENGTH) {
+            flowOf(SearchCitiesScreenState.NoData)
+        } else {
+            searchCitiesUseCase(query).map { outcome ->
+                outcome.fold(
+                    { failure ->
+                        Timber.e(failure.exception)
+                        SearchCitiesScreenState.Error(failure)
+                    },
+                    { data ->
+                        if (data.isEmpty()) {
+                            SearchCitiesScreenState.NoData
+                        } else {
+                            SearchCitiesScreenState.Loaded(data.map(cityMapper::invoke))
+                        }
+                    },
+                )
+            }.onStart { emit(SearchCitiesScreenState.Loading) }
+        }
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = SearchCitiesScreenState.Loading,
+    )
+
+    private val eventChannel = Channel<SearchCitiesScreenEventsState>(Channel.BUFFERED)
     val events = eventChannel.receiveAsFlow()
 
-    private val searchQuery = MutableStateFlow<String?>(null)
-    private val cityMapper = uiCityMapper()
+    private val _eventsState = MutableStateFlow<SearchCitiesScreenEventsState>(SearchCitiesScreenEventsState.Empty)
+    val eventsState = _eventsState.asStateFlow()
 
-    private var searchJob: Job? = null
+    private val cityMapper = uiCityMapper()
 
     init {
         Timber.d("SearchCitiesViewModel created")
-        searchQuery.debounce(500)
-            .filterNot { it.isNullOrBlank() }
-            .onEach {
-                Timber.d("Search query changed to $it")
-                searchJob?.cancel()
-                searchJob = viewModelScope.launch {
-                    delay(100)
-                    _state.update { SearchCitiesScreenState.Loading }
-                    performSearch(this, it!!)
-                }
-            }
-            .launchIn(viewModelScope)
     }
 
     fun submit(action: SearchCitiesActions) {
         Timber.d("CitySelectorViewModel submitted action $action")
         when (action) {
-            is SearchCitiesActions.SearchCity -> searchQuery.update { action.query }
+            is SearchCitiesActions.SearchCity -> {
+                savedStateHandle[SEARCH_QUERY] = action.query
+            }
+
+            is SearchCitiesActions.EventsSateConsumed -> {
+                _eventsState.update { SearchCitiesScreenEventsState.Empty }
+            }
+
             is SearchCitiesActions.AddCity -> addCityUseCase(cityMapper(action.city)) { outcome ->
-                outcome.fold({
-                    Timber.e(it.exception)
-                    eventChannel.trySend(SearchCitiesScreenEvents.ShowError(it))
-                }, {
-                    eventChannel.trySend(SearchCitiesScreenEvents.CityAdded)
-                })
+                outcome.fold(
+                    { failure ->
+                        Timber.e(failure.exception)
+                        _eventsState.update { SearchCitiesScreenEventsState.ShowError(failure) }
+                    },
+                    {
+                        _eventsState.update { SearchCitiesScreenEventsState.CityAdded }
+                        savedStateHandle[SEARCH_QUERY] = ""
+                    },
+                )
             }
         }
     }
 
-    private fun performSearch(scope: CoroutineScope, query: String) =
-        searchCitiesUseCase(query, scope) { outcome ->
-            outcome.fold({ failure ->
-                Timber.e(failure.exception)
-                _state.update {
-                    SearchCitiesScreenState.Error(failure)
-                }
-            }, { data ->
-                _state.update {
-                    SearchCitiesScreenState.Loaded(data.map(cityMapper::invoke))
-                }
-            })
-        }
-
 }
+
+/** Minimum length where search query is considered as [SearchCitiesScreenState.NoData] */
+private const val SEARCH_QUERY_MIN_LENGTH = 3
+
+private const val SEARCH_QUERY = "searchQuery"
 

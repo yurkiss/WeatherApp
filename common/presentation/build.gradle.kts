@@ -20,10 +20,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
 
-    // Recycler View
-    implementation(libs.epoxy)
-    ksp(libs.epoxy.processor)
-
     // Logging
     implementation(libs.timber)
 

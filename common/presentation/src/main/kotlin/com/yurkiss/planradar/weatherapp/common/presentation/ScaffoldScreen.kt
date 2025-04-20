@@ -4,17 +4,27 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -39,14 +49,26 @@ import com.yurkiss.planradar.weatherapp.designsystem.theme.backgroundLight
 fun ScaffoldScreen(
     title: String,
     onBack: (() -> Unit)?,
+    floatingActionButton: @Composable () -> Unit = {},
+    snackbarHostState: SnackbarHostState? = null,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     WeatherAppBackground {
         Scaffold(
+            contentWindowInsets = WindowInsets.safeDrawing,
             containerColor = Color.Transparent,
             topBar = {
                 LargeTopAppBar(
-                    title = { Text(title, style = MaterialTheme.typography.headlineMedium) },
+                    title = {
+                        Text(
+                            text = title,
+                            modifier = Modifier
+                                .windowInsetsPadding(
+                                    WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal),
+                                ),
+                            style = MaterialTheme.typography.headlineMedium,
+                        )
+                    },
                     navigationIcon = {
                         onBack?.let {
                             IconButton(onClick = it) {
@@ -61,10 +83,60 @@ fun ScaffoldScreen(
                     ),
                 )
             },
+            floatingActionButton = floatingActionButton,
+            floatingActionButtonPosition = FabPosition.End,
+            snackbarHost = { snackbarHostState?.let { SnackbarHost(it) } },
             content = content,
         )
     }
 }
+
+//@ExperimentalMaterial3Api
+//@Composable
+//fun BottomSheetScaffoldScreen(
+//    title: String,
+//    onBack: (() -> Unit)?,
+//    floatingActionButton: @Composable () -> Unit = {},
+//    snackbarHostState: SnackbarHostState? = null,
+//    content: @Composable (PaddingValues) -> Unit,
+//) {
+//    WeatherAppBackground {
+//        BottomSheetScaffold(
+//            contentWindowInsets = WindowInsets.safeDrawing,
+//            containerColor = Color.Transparent,
+//            topBar = {
+//                LargeTopAppBar(
+//                    title = {
+//                        Text(
+//                            text = title,
+//                            modifier = Modifier
+//                                .windowInsetsPadding(
+//                                    WindowInsets.displayCutout.only(WindowInsetsSides.Horizontal)
+//                                ),
+//                            style = MaterialTheme.typography.headlineMedium,
+//                        )
+//                    },
+//                    navigationIcon = {
+//                        onBack?.let {
+//                            IconButton(onClick = it) {
+//                                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+//                            }
+//                        }
+//                    },
+//                    colors = TopAppBarDefaults.topAppBarColors(
+//                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+//                        titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+//                        navigationIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+//                    ),
+//                )
+//            },
+//            floatingActionButton = floatingActionButton,
+//            floatingActionButtonPosition = FabPosition.End,
+//            snackbarHost = { snackbarHostState?.let { SnackbarHost(it) } },
+//            content = content,
+//        )
+//    }
+//}
 
 
 /**
@@ -126,6 +198,11 @@ fun ScaffoldScreenPreview(modifier: Modifier = Modifier) {
         ScaffoldScreen(
             "Hello",
             onBack = {},
+            floatingActionButton = {
+                Button(onClick = {}) {
+                    Text(text = "Hello")
+                }
+            },
         ) {
 
         }

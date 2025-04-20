@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 @Dao
 interface FavoriteCitiesDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(item: FavoriteCityEntity): Long
 
     @Query("SELECT count(*) FROM ${FavoriteCityEntity.TABLE_NAME}")

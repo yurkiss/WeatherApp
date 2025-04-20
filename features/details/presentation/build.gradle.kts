@@ -29,17 +29,14 @@ dependencies {
     // DI: Hilt
     implementation(libs.hilt.android.deps)
     ksp(libs.hilt.compiler)
-    implementation(libs.androidx.hilt.navigation.fragment)
     implementation(libs.androidx.hilt.navigation.compose)
 
     // AndroidX
     implementation(libs.androidx.core.ktx)
-    implementation(libs.material)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
     // Image loading
-    implementation(libs.coil)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
 

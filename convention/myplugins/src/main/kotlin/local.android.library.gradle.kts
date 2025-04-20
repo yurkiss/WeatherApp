@@ -20,7 +20,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -42,4 +42,9 @@ android {
 
 kotlin {
     jvmToolchain(17)
+    compilerOptions {
+        optIn.add("kotlinx.coroutines.FlowPreview")
+        optIn.add("kotlin.time.ExperimentalTime")
+        optIn.add("kotlinx.coroutines.ExperimentalCoroutinesApi")
+    }
 }
